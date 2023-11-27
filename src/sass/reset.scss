@@ -1,0 +1,18 @@
+@import "../../node_modules/normalize.css/normalize.css";
+@import "variables";
+
+button {
+    cursor: pointer;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+$link-decoration: none;

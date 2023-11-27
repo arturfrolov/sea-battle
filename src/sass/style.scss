@@ -1,0 +1,12 @@
+@import './reset';
+@import "bootstrap/scss/bootstrap";
+
+// Block
+@import 'blocks/modal/modal';
+
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
