@@ -1,0 +1,19 @@
+.field {
+    width: auto;
+    text-align: center;
+    &__tab {
+        border-collapse: collapse;
+        margin: 10px;
+        background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    }
+    &__label {
+        width: 40px;
+        height: 40px;
+        background-color: white;
+    }
+    &__cell {
+        border: 1px solid black;
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,39 @@
+.sea-battle {
+    padding: 60px 0;
+    &__title {
+        text-align: center;
+        margin: 0 0 25px 0;
+    }
+    &__wrap {
+       display: flex;
+        justify-content: space-between;
+    }
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        width: 280px;
+        position: relative;
+
+        &-title {
+            font-size: 18px;
+            position: absolute;
+
+        }
+        &_btns {
+            display: flex;
+            flex-direction: column;
+        }
+        &_btn {
+            width: 220px;
+            margin-bottom: 5px;
+        }
+    }
+    &__menu-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        border: 1px solid rgba(192, 191, 191, 0.53);
+        border-radius: 20px;
+    }
+}
