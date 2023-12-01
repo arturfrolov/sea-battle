@@ -3,6 +3,11 @@
     &__title {
         text-align: center;
         margin: 0 0 25px 0;
+        background: linear-gradient(-60deg, blue 20%, cyan, blue 80%, cyan);
+        background-size: 200% 200%;
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: moveWave 4s ease-in-out infinite;
     }
     &__wrap {
        display: flex;
@@ -13,7 +18,6 @@
         flex-direction: column;
         justify-content: space-between;
         width: 280px;
-        position: relative;
         &-item {
             display: flex;
             flex-direction: column;
@@ -21,14 +25,16 @@
             width: 100%;
             border: 1px solid rgba(192, 191, 191, 0.53);
             border-radius: 20px;
-            padding-top: 15px;
+            padding: 15px 0 5px 0;
+            position: relative;
         }
         &-title {
             font-size: 18px;
             position: absolute;
-            top: -10px;
+            top: -11px;
             padding: 0 5px;
             background-color: #FFF;
+            color: midnightblue;
         }
         &_btns {
             display: flex;
@@ -36,8 +42,15 @@
         }
         &_btn {
             width: 220px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
     }
-
+}
+@keyframes moveWave {
+    0%, 100% {
+        background-position: 0, 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }
