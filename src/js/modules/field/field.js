@@ -1,7 +1,6 @@
 class Field {
     constructor() {
         this.containers = document.querySelectorAll('.field');
-
     }
 
     createLabelCell(content = '') {
@@ -25,7 +24,6 @@ class Field {
                 headerRow.append(this.createLabelCell(String.fromCharCode(65 + i)));
             }
             table.append(headerRow);
-            // console.log(headerRow);
 
             // Создание остальных строк
             for (let i = 0; i < 10; i++) {
