@@ -43,7 +43,6 @@ class Field {
             container.append(table);
         });
     }
-
 }
 
 export default Field;
