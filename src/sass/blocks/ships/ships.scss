@@ -1,0 +1,21 @@
+.ship {
+    &-row-1, &-column-1 {
+        background: url('../icons/ship-1.svg') no-repeat center/contain;
+    }
+    &-row-2, &-column-2 {
+        width: 80px;
+        background: url('../icons/ship-2.svg') no-repeat center/contain;
+    }
+    &-row-3, &-column-3 {
+        width: 120px;
+        background: url('../icons/ship-3.svg') no-repeat center/contain;
+    }
+    &-row-4, &-column-4 {
+        width: 160px;
+        background: url('../icons/ship-4.svg') no-repeat center/contain;
+    }
+
+    &-column-1, &-column-2, &-column-3, &-column-4 {
+        transform: rotate(-90deg);
+    }
+}
