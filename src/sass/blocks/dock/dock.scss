@@ -2,10 +2,11 @@
     position: relative;
     &__ship {
         position: absolute;
+        cursor: move;
         //top: 10px;
         //left: 50px;
         width: 40px;
         height: 40px;
-        border: 1px solid grey;
+        //border: 1px solid grey;
     }
 }

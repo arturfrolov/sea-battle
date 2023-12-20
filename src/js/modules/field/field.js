@@ -43,6 +43,11 @@ class Field {
             container.append(table);
         });
     }
+
+    shipMove() {
+
+    }
+
 }
 
 export default Field;

@@ -19,3 +19,8 @@
         transform: rotate(-90deg);
     }
 }
+
+.dragging {
+    //opacity: 0.6;
+    box-shadow: rgb(83, 81, 81) 2px 6px 9px -1px;
+}
