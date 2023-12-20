@@ -44,10 +44,6 @@ class Field {
         });
     }
 
-    shipMove() {
-
-    }
-
 }
 
 export default Field;
