@@ -5,12 +5,11 @@ class Field {
         this.numberColumns = numberColumns;
     }
 
-    createLabelCell(content = '', counterLines, counterCells) {
+    createCell(content = '', counterLines, counterCells) {
         const cell = document.createElement('td');
         cell.classList.add('field__cell');
         cell.setAttribute('data-x', counterCells + 1);
         cell.setAttribute('data-y', counterLines + 1);
-
 
         if (counterCells === 0) {
             console.log(counterLines, counterCells)
@@ -20,7 +19,7 @@ class Field {
         } else if (counterLines === 0) {
 
             cell.classList.add('label-column');
-            cell.style.content = content;
+            cell.style.content = counterCells;
         }
         return cell;
 
@@ -30,9 +29,9 @@ class Field {
         const row = document.createElement('tr')
         row.classList.add('field__row');
 
-        // Создаем ячейки с остальными буквами
+        // Создаем ячейки
         for (let i = 0; i < this.numberColumns; i++) {
-            row.append(this.createLabelCell(String.fromCharCode(65 + i), counterLines, i));
+            row.append(this.createCell(String.fromCharCode(65 + i), counterLines, i));
         }
         return row;
     }
@@ -42,7 +41,7 @@ class Field {
             const table = document.createElement('table');
             table.classList.add('field__tab');
 
-            // Создание остальных строк
+            // Создание строк
             for (let i = 0; i < this.numberLines; i++) {
                 table.append(this.createRow(i));
             }
