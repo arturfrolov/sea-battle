@@ -1,13 +1,39 @@
 class Field {
-    constructor() {
+    constructor(numberLines, numberColumns) {
         this.containers = document.querySelectorAll('.field');
+        this.numberLines = numberLines;
+        this.numberColumns = numberColumns;
     }
 
-    createLabelCell(content = '') {
-        const labelCell = document.createElement('th');
-        labelCell.classList.add('field__label');
-        labelCell.textContent = content;
-        return labelCell;
+    createLabelCell(content = '', counterLines, counterCells) {
+        const cell = document.createElement('td');
+        cell.classList.add('field__cell');
+        cell.setAttribute('data-x', counterCells + 1);
+        cell.setAttribute('data-y', counterLines + 1);
+
+
+        if (counterCells === 0) {
+            console.log(counterLines)
+            cell.classList.add('label-column');
+            cell.style.content = content;
+            return cell;
+        } else if (counterLines === 0) {
+            cell.classList.add('label-row');
+            cell.style.content = content;
+        }
+        return cell;
+
+    }
+
+    createRow(counterLines) {
+        const row = document.createElement('tr')
+        row.classList.add('field__row');
+
+        // Создаем ячейки с остальными буквами
+        for (let i = 0; i < this.numberColumns; i++) {
+            row.append(this.createLabelCell(String.fromCharCode(65 + i), counterLines, i));
+        }
+        return row;
     }
 
     generateTable() {
@@ -15,35 +41,20 @@ class Field {
             const table = document.createElement('table');
             table.classList.add('field__tab');
 
-            // Создаем строку с буквами
-            const headerRow = document.createElement('tr')
-            headerRow.classList.add('field__row');
-            headerRow.append(this.createLabelCell()); // Создаем первую пустую ячейку
-
-            for (let i = 0; i < 10; i++) {
-                headerRow.append(this.createLabelCell(String.fromCharCode(65 + i)));
-            }
-            table.append(headerRow);
-
             // Создание остальных строк
-            for (let i = 0; i < 10; i++) {
-                const row = document.createElement('tr');
-                row.classList.add('field__row');
-                row.append(this.createLabelCell(i + 1));
-
-                for (let j = 0; j < 10; j++) {
-                    const cell = document.createElement('td');
-                    cell.classList.add('field__cell');
-                    cell.setAttribute('data-x', j + 1);
-                    cell.setAttribute('data-y', i + 1);
-                    row.append(cell);
-                }
-                table.append(row);
+            for (let i = 0; i < this.numberLines; i++) {
+                table.append(this.createRow(i));
             }
             container.append(table);
         });
     }
 
+    isShipInField(shipRect, fieldRect) {
+        return shipRect.left >= fieldRect.left &&
+            shipRect.right <= fieldRect.right &&
+            shipRect.top >= fieldRect.top &&
+            shipRect.bottom <= fieldRect.bottom;
+    }
 }
 
 export default Field;

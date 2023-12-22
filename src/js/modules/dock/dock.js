@@ -1,8 +1,8 @@
 class Dock {
-    constructor() {
+    constructor(fields) {
         this.playerField = document.querySelector('.sea-battle__player');
+        this.fields = fields;
         this.dock = this.createDock();
-        // this.shipSizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
         this.shipTypes = {
             1: 4, // 1 четырехпалубный
             2: 3, // 2 трехпалубных
@@ -27,9 +27,12 @@ class Dock {
     handleMouseDown(event) {
         // Сохраняем ссылку на перетаскиваемый корабль и начальные координаты
         this.currentShip = event.target;
-        this.offsetX = event.clientX - this.currentShip.getBoundingClientRect().left; // X координата курсора относительно блока, на который мы нажали
-        this.offsetY = event.clientY - this.currentShip.getBoundingClientRect().top; // Y координата курсора относительно блока, на который мы нажали
+        this.offsetX = event.clientX - this.currentShip.getBoundingClientRect().left; // расстояние по горизонтали, от места клика до края блока, на который мы нажали
+        this.offsetY = event.clientY - this.currentShip.getBoundingClientRect().top; // расстояние по вертикали, от места клика до края блока, на который мы нажали
         this.currentShip.classList.add('dragging');
+
+        this.startX = this.currentShip.style.left;
+        this.startY = this.currentShip.style.top;
     }
 
     handleMouseMove(event) {
@@ -40,7 +43,6 @@ class Dock {
         // Обновляем позицию корабля
         const x = event.clientX - dockRect.left - this.offsetX;
         const y = event.clientY - dockRect.top - this.offsetY;
-        console.log(x, y)
 
         this.currentShip.style.left = `${x}px`;
         this.currentShip.style.top = `${y}px`;
@@ -48,6 +50,16 @@ class Dock {
 
     handleMouseUp() {
         if (this.currentShip) {
+            const fieldsRect = this.fields.containers[0].getBoundingClientRect();
+            const shipRect = this.currentShip.getBoundingClientRect();
+
+            // Проверяем, находится ли корабль в пределах игрового поля
+            if (!this.fields.isShipInField(shipRect, fieldsRect)) {
+                // Возвращаем корабль на начальные координаты
+                this.currentShip.style.left = this.startX;
+                this.currentShip.style.top = this.startY;
+            }
+
             this.currentShip.classList.remove('dragging');
             this.currentShip = null;
         }
@@ -70,13 +82,14 @@ class Dock {
         let yOffset = 0;
 
         Object.entries(this.shipTypes).forEach(([count, size]) => {
+
             let xOffset = 50;
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < +count; i++) {
                 const ship = this.createShip(size);
                 ship.style.left = `${xOffset}px`;
                 ship.style.top = `${yOffset}px`;
                 this.dock.append(ship);
-                xOffset += parseInt(size) * 40 + 10; // Смещение по X + небольшой отступ
+                xOffset += size * 40 + 10; // Смещение по X + небольшой отступ
             }
             yOffset += 50; // Смещение по Y для следующего яруса кораблей
         });

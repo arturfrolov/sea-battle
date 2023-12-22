@@ -13,8 +13,21 @@
         background-color: white;
     }
     &__cell {
+        position: relative;
         border: 1px solid black;
         width: 40px;
         height: 40px;
+        &.label-column {
+            &:before {
+                content: '';
+                position: absolute;
+            }
+        }
+        &.label-row {
+            &:after {
+                content: '';
+                position: absolute;
+            }
+        }
     }
 }

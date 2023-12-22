@@ -7,7 +7,7 @@ import Field from './modules/field/field';
 import Dock from './modules/dock/dock';
 
 
-const newField = new Field();
+const newField = new Field(10, 10);
 newField.generateTable();
 
-const newDock = new Dock();
+const newDock = new Dock(newField);
