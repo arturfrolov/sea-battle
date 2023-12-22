@@ -13,12 +13,13 @@ class Field {
 
 
         if (counterCells === 0) {
-            console.log(counterLines)
-            cell.classList.add('label-column');
-            cell.style.content = content;
-            return cell;
-        } else if (counterLines === 0) {
+            console.log(counterLines, counterCells)
             cell.classList.add('label-row');
+            cell.style.content = content;
+
+        } else if (counterLines === 0) {
+
+            cell.classList.add('label-column');
             cell.style.content = content;
         }
         return cell;
