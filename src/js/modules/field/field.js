@@ -5,24 +5,21 @@ class Field {
         this.numberColumns = numberColumns;
     }
 
-    createCell(content = '', counterLines, counterCells) {
+    createCell(content, counterLines, counterCells) {
         const cell = document.createElement('td');
         cell.classList.add('field__cell');
         cell.setAttribute('data-x', counterCells + 1);
         cell.setAttribute('data-y', counterLines + 1);
 
         if (counterCells === 0) {
-            console.log(counterLines, counterCells)
             cell.classList.add('label-row');
-            cell.style.content = counterLines;
-
-        } else if (counterLines === 0) {
-
+            cell.style.setProperty('--cell-content-row', `"${counterLines + 1}"`);
+        }
+        if (counterLines === 0) {
             cell.classList.add('label-column');
-            cell.style.content = content;
+            cell.style.setProperty('--cell-content-column', `"${content}"`);
         }
         return cell;
-
     }
 
     createRow(counterLines) {

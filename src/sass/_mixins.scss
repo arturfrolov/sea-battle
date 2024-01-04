@@ -1,0 +1,11 @@
+@mixin pseudo-element-style($content-variable, $top, $left) {
+    content: var($content-variable);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    top: $top;
+    left: $left;
+}
