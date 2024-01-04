@@ -79,11 +79,11 @@ class Dock {
     }
 
     placeShips() {
-        let yOffset = 0;
+        let yOffset = 10;
 
         Object.entries(this.shipTypes).forEach(([count, size]) => {
 
-            let xOffset = 50;
+            let xOffset = 10;
             for (let i = 0; i < +count; i++) {
                 const ship = this.createShip(size);
                 ship.style.left = `${xOffset}px`;
