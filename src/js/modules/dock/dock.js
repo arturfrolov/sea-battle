@@ -2,6 +2,7 @@ class Dock {
     constructor(fields) {
         this.playerField = document.querySelector('.sea-battle__player');
         this.fields = fields;
+        this.isPlaced = false;
         this.dock = this.createDock();
         this.shipTypes = {
             1: 4, // 1 четырехпалубный
@@ -49,20 +50,38 @@ class Dock {
     }
 
     handleMouseUp() {
-        if (this.currentShip) {
-            const fieldsRect = this.fields.containers[0].getBoundingClientRect();
-            const shipRect = this.currentShip.getBoundingClientRect();
+        if (!this.currentShip) return;
+        const fieldsRect = this.fields.containers[0].getBoundingClientRect();
+        const shipRect = this.currentShip.getBoundingClientRect();
+        const isInField = this.fields.isShipInField(shipRect, fieldsRect);
 
-            // Проверяем, находится ли корабль в пределах игрового поля
-            if (!this.fields.isShipInField(shipRect, fieldsRect)) {
-                // Возвращаем корабль на начальные координаты
+        // Проверяем, находится ли корабль в пределах игрового поля
+        if (isInField) {
+            // Корабль размещён на поле
+            this.isPlaced = true;
+
+            // Запоминаем текущее положение как новые начальные координаты
+            this.startX = this.currentShip.style.left;
+            this.startY = this.currentShip.style.top;
+        } else {
+            // Возвращаем корабль на начальные координаты
+            // Если корабль был размещён, используем исходное положение в доке
+            if (this.isPlaced) {
+                const initialPosition = this.currentShip.getAttribute('data-initial-position');
+                const [initialX, initialY] = initialPosition.split(',');
+                this.currentShip.style.left = `${initialX}px`;
+                this.currentShip.style.top = `${initialY}px`;
+            } else {
+                // Если корабль не был размещён, возвращаем на последнее известное положение на поле
                 this.currentShip.style.left = this.startX;
                 this.currentShip.style.top = this.startY;
             }
-
-            this.currentShip.classList.remove('dragging');
-            this.currentShip = null;
+            // Сброс флага размещения, так как корабль не на игровом поле
+            this.isPlaced = false;
         }
+
+        this.currentShip.classList.remove('dragging');
+        this.currentShip = null;
     }
 
     createDock() {
@@ -88,6 +107,7 @@ class Dock {
                 const ship = this.createShip(size);
                 ship.style.left = `${xOffset}px`;
                 ship.style.top = `${yOffset}px`;
+                ship.setAttribute('data-initial-position', `${xOffset},${yOffset}`);
                 this.dock.append(ship);
                 xOffset += size * 40 + 10; // Смещение по X + небольшой отступ
             }
